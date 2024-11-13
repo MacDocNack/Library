@@ -1,0 +1,49 @@
+﻿<Application x:Class="Library.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Library"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <DataTemplate x:Key="BooksData">
+            <StackPanel>
+                <TextBlock>
+                    <Run Text="Название книги:"/>
+                    <Run Text="{Binding BookName}"/>
+                    <LineBreak/>
+                    <Run Text="Автор:"/>
+                    <Run Text="{Binding Author}"/>
+                    <LineBreak/>
+                    <Run Text="Год выпуска:"/>
+                    <Run Text="{Binding Year}"/>
+                    <LineBreak/>
+                    <Run Text="Жанр книги:"/>
+                    <Run Text="{Binding Genre}"/>
+                    <LineBreak/>
+                    <Run Text="Количество страниц:"/>
+                    <Run Text="{Binding PagesCount}"/>
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Application.Resources>
+</Application>
