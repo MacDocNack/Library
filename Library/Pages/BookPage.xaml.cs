@@ -32,7 +32,7 @@ namespace Library.Pages
                 throw new Exception(ex.Message);
             }
 
-            if (bookName != string.Empty || author != string.Empty || year != 0 ||
+            if (bookName != string.Empty || author != string.Empty || year > 0 ||
                 genre != string.Empty || pagesCount > 0)
             {
                 LibraryPage.Instance.Books.Add(new Book(bookName, author, year, genre, pagesCount));
