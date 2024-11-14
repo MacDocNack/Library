@@ -1,5 +1,6 @@
 ﻿using Library.Classes;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -8,6 +9,8 @@ namespace Library.Pages
 {
     public partial class BookPage : Page
     {
+        private bool _isEditing = false;
+        private int _bookIndex;
 
         public BookPage()
         {
@@ -27,17 +30,31 @@ namespace Library.Pages
                 year = int.Parse(Year.Text);
                 pagesCount = int.Parse(PagesCount.Text);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
-            if (bookName != string.Empty || author != string.Empty || year != 0 ||
-                genre != string.Empty || pagesCount > 0)
+            if (_isEditing == false)
             {
-                LibraryPage.Instance.Books.Add(new Book(bookName, author, year, genre, pagesCount));
-                ClearAll();
-                NavigationService.GoBack();
+                if (bookName != string.Empty || author != string.Empty || year != 0 ||
+                    genre != string.Empty || pagesCount > 0)
+                {
+                    LibraryPage.Instance.Books.Add(new Book(bookName, author, year, genre, pagesCount));
+                    ClearAll();
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
+                if (bookName != string.Empty || author != string.Empty || year != 0 ||
+                genre != string.Empty || pagesCount > 0)
+                {
+                    LibraryPage.Instance.Books[_bookIndex] = new Book(bookName, author, year, genre, pagesCount);
+                    ClearAll();
+                    _isEditing = false;
+                    NavigationService.GoBack();
+                }
             }
         }
 
@@ -56,13 +73,15 @@ namespace Library.Pages
             PagesCount.Clear();
         }
 
-        public void EditBook(string bookName, string author, int year, string genre, int pagesCount)
+        public void EditBook(string bookName, string author, int year, string genre, int pagesCount, int bookIndex)
         {
             BookName.Text = bookName;
             Author.Text = author;
             Year.Text = Convert.ToString(year);
             Genre.Text = genre;
             PagesCount.Text = Convert.ToString(pagesCount);
+            _bookIndex = bookIndex;
+            _isEditing = true;
         }
     }
 }

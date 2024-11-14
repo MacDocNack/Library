@@ -3,19 +3,36 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 namespace Library.Pages
 {
-    public partial class LibraryPage : Page
+    public partial class LibraryPage : INotifyPropertyChanged
     {
         public static LibraryPage Instance { get; set; }
 
-        public ObservableCollection<Book> Books = new ObservableCollection<Book>();
+        
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged()
+        protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Books)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(propertyName)));
+        }
+
+        private ObservableCollection<Book> _books = new ObservableCollection<Book>();
+        public ObservableCollection<Book> Books
+        {
+            get
+            {
+                if (_books == null)
+                    _books = new ObservableCollection<Book>();
+                return _books;
+            }
+            set
+            {
+                _books = value;
+                OnPropertyChanged(nameof(Books));
+            }
         }
 
         public LibraryPage()
@@ -24,7 +41,7 @@ namespace Library.Pages
             Instance = this;
             BookHolder.SetBinding(ListView.ItemsSourceProperty, new Binding()
             {
-                Source = Books
+                Source = _books
             });
         }
 
@@ -42,7 +59,7 @@ namespace Library.Pages
                 int year = Books[BookHolder.SelectedIndex].Year;
                 string genre = Books[BookHolder.SelectedIndex].Genre;
                 int pagesCount = Books[BookHolder.SelectedIndex].PagesCount;
-                PageController.BookPage.EditBook(bookName, author, year, genre, pagesCount);
+                PageController.BookPage.EditBook(bookName, author, year, genre, pagesCount, BookHolder.SelectedIndex);
                 NavigationService.Navigate(PageController.BookPage);
             }
         }
