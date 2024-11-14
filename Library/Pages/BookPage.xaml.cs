@@ -35,12 +35,26 @@ namespace Library.Pages
                 throw new Exception(ex.Message);
             }
 
-            if (bookName != string.Empty || author != string.Empty || year != 0 ||
-                genre != string.Empty || pagesCount > 0)
+            if (_isEditing == false)
             {
-                LibraryPage.Instance.Books.Add(new Book(bookName, author, year, genre, pagesCount));
-                ClearAll();
-                NavigationService.GoBack();
+                if (bookName != string.Empty || author != string.Empty || year != 0 ||
+                genre != string.Empty || pagesCount > 0)
+                {
+                    LibraryPage.Instance.Books.Add(new Book(bookName, author, year, genre, pagesCount));
+                    ClearAll();
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
+                if (bookName != string.Empty || author != string.Empty || year != 0 ||
+                genre != string.Empty || pagesCount > 0)
+                {
+                    LibraryPage.Instance.Books[_bookIndex] = new Book(bookName, author, year, genre, pagesCount);
+                    _isEditing = false;
+                    ClearAll();
+                    NavigationService.GoBack();
+                }
             }
         }
 

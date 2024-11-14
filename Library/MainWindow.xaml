@@ -8,6 +8,5 @@
         Title="Library" Height="450" Width="800">
     <Grid>
         <Frame Name="AppFrame" NavigationUIVisibility="Hidden"></Frame>
-
     </Grid>
 </Window>
