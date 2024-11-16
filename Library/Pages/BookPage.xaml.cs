@@ -60,6 +60,7 @@ namespace Library.Pages
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
+            _isEditing = false;
             ClearAll();
             NavigationService.GoBack();
         }
