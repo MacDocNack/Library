@@ -18,3 +18,5 @@ C:\Users\User\source\repos\Library\Library\obj\Debug\Pages\LibraryPage.g.cs
 C:\Users\User\source\repos\Library\Library\obj\Debug\Pages\LibraryPage.baml
 C:\Users\User\source\repos\Library\Library\obj\Debug\Pages\BookPage.g.cs
 C:\Users\User\source\repos\Library\Library\obj\Debug\Pages\BookPage.baml
+C:\Users\User\source\repos\Library\Library\obj\Debug\Pages\BookDescription.g.cs
+C:\Users\User\source\repos\Library\Library\obj\Debug\Pages\BookDescription.baml

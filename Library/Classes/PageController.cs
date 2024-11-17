@@ -11,6 +11,7 @@ namespace Library.Classes
     {
         private static BookPage _bookPage { get; set; }
         private static LibraryPage _libraryPage { get; set; }
+        private static BookDescription _bookDescription { get; set; }
 
         public static BookPage BookPage
         {
@@ -34,6 +35,17 @@ namespace Library.Classes
                 }
 
                 return _libraryPage;
+            }
+        }
+        public static BookDescription BookDescription
+        {
+            get
+            {
+                if (_bookDescription == null)
+                {
+                    _bookDescription = new BookDescription();
+                }
+                return _bookDescription;
             }
         }
     }

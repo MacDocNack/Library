@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Library.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="LibraryPage">
+      Title="LibraryPage"
+      Background="AliceBlue">
 
     <Grid>
         <StackPanel>
@@ -18,12 +19,19 @@
                 VerticalAlignment="Center" 
                 ItemTemplate="{StaticResource ResourceKey=BooksData}"
                 ScrollViewer.VerticalScrollBarVisibility="Visible"
-                ScrollViewer.CanContentScroll="True"/>
+                ScrollViewer.CanContentScroll="True"
+                SelectionChanged="BookHolder_SelectionChanged"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Add Book" Click="AddButton"/>
-                <Button Content="Edit Book" Click="EditButton"/>
-                <Button Content="Delete Book" Click="DeleteButton"/>
+                <Button 
+                    Content="Add Book" 
+                    Click="AddButton"/>
+                <Button 
+                    Content="Edit Book" 
+                    Click="EditButton"/>
+                <Button 
+                    Content="Delete Book" 
+                    Click="DeleteButton"/>
             </StackPanel>
         </StackPanel>
     </Grid>

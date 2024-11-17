@@ -5,15 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Library.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="BookPage">
 
     <Grid>
-        <StackPanel Width="600" VerticalAlignment="Center">
+        <StackPanel Width="560" VerticalAlignment="Center">
             <Label Content="Название книги"></Label>
             <TextBox Name="BookName"></TextBox>
             <Label Content="Автор"></Label>
             <TextBox Name="Author"></TextBox>
+            <Label Content="Краткое описание"></Label>
+            <TextBox Name="Description"></TextBox>
             <Label Content="Год выпуска"></Label>
             <TextBox Name="Year"></TextBox>
             <Label Content="Жанр"></Label>

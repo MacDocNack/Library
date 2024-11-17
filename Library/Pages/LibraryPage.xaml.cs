@@ -11,7 +11,6 @@ namespace Library.Pages
     public partial class LibraryPage : INotifyPropertyChanged
     {
         public static LibraryPage Instance { get; set; }
-
         
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -56,10 +55,11 @@ namespace Library.Pages
             {
                 string bookName = Books[BookHolder.SelectedIndex].BookName;
                 string author = Books[BookHolder.SelectedIndex].Author;
+                string descriprion = Books[BookHolder.SelectedIndex].Description;
                 int year = Books[BookHolder.SelectedIndex].Year;
                 string genre = Books[BookHolder.SelectedIndex].Genre;
                 int pagesCount = Books[BookHolder.SelectedIndex].PagesCount;
-                PageController.BookPage.EditBook(bookName, author, year, genre, pagesCount, BookHolder.SelectedIndex);
+                PageController.BookPage.EditBook(bookName, author, descriprion, year, genre, pagesCount, BookHolder.SelectedIndex);
                 NavigationService.Navigate(PageController.BookPage);
             }
         }
@@ -70,6 +70,17 @@ namespace Library.Pages
             {
                 Books.RemoveAt(BookHolder.SelectedIndex);
             }
+        }
+
+        private void BookHolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BookHolder.SelectedItem == null || BookHolder.SelectedItems.Count > 1) return;
+
+            string bookName = Books[BookHolder.SelectedIndex].BookName;
+            string author = Books[BookHolder.SelectedIndex].Author;
+            string descriprion = Books[BookHolder.SelectedIndex].Description;
+            PageController.BookDescription.ShowDetails(bookName, author, descriprion);
+            PageController.BookDescription.Show();
         }
     }
 }

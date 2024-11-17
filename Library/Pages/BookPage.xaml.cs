@@ -19,39 +19,27 @@ namespace Library.Pages
 
         private void Save(object sender, RoutedEventArgs e)
         {
-            string bookName = BookName.Text;
-            string author = Author.Text;
-            string genre = Genre.Text;
+            string bookName = BookName.Text.Trim();
+            string author = Author.Text.Trim();
+            string description = Description.Text.Trim();
+            string genre = Genre.Text.Trim();
 
-            int year;
-            int pagesCount;
-            try
-            {
-                year = int.Parse(Year.Text);
-                pagesCount = int.Parse(PagesCount.Text);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            int year = int.TryParse(Year.Text.Trim(), out year) ? year : -1;
+            int pagesCount = int.TryParse(PagesCount.Text.Trim(), out pagesCount) ? pagesCount : -1; ;
 
-            if (_isEditing == false)
+            if (!string.IsNullOrEmpty(bookName) && !string.IsNullOrEmpty(author) && !string.IsNullOrEmpty(description) && 
+                year > 0 && !string.IsNullOrEmpty(genre) && pagesCount > 0)
             {
-                if (bookName != string.Empty || author != string.Empty || year != 0 ||
-                genre != string.Empty || pagesCount > 0)
+                if (_isEditing)
                 {
-                    LibraryPage.Instance.Books.Add(new Book(bookName, author, year, genre, pagesCount));
+                    LibraryPage.Instance.Books[_bookIndex] = new Book(bookName, author, description ,year, genre, pagesCount);
+                    _isEditing = false;
                     ClearAll();
                     NavigationService.GoBack();
                 }
-            }
-            else
-            {
-                if (bookName != string.Empty || author != string.Empty || year != 0 ||
-                genre != string.Empty || pagesCount > 0)
+                else
                 {
-                    LibraryPage.Instance.Books[_bookIndex] = new Book(bookName, author, year, genre, pagesCount);
-                    _isEditing = false;
+                    LibraryPage.Instance.Books.Add(new Book(bookName, author, description, year, genre, pagesCount));
                     ClearAll();
                     NavigationService.GoBack();
                 }
@@ -69,18 +57,20 @@ namespace Library.Pages
         {
             BookName.Clear();
             Author.Clear();
+            Description.Clear();
             Year.Clear();
             Genre.Clear();
             PagesCount.Clear();
         }
 
-        public void EditBook(string bookName, string author, int year, string genre, int pagesCount, int bookIndex)
+        public void EditBook(string bookName, string author, string description ,int year, string genre, int pagesCount, int bookIndex)
         {
             BookName.Text = bookName;
             Author.Text = author;
-            Year.Text = Convert.ToString(year);
+            Description.Text = description;
+            Year.Text = year.ToString();
             Genre.Text = genre;
-            PagesCount.Text = Convert.ToString(pagesCount);
+            PagesCount.Text = pagesCount.ToString();
             _bookIndex = bookIndex;
             _isEditing = true;
         }
